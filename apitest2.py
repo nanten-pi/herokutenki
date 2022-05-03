@@ -83,10 +83,10 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('$weather'):
+    if message.content.startswith('$nextweather'):
         quote = get_quote()
         await message.channel.send(quote)
-    if message.content.startswith('$weather now'):
+    if message.content.startswith('$nowweather'):
         quote2 = get_quote2()
         await message.channel.send(quote2)
     if message.content.startswith('$hei'):
