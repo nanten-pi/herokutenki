@@ -111,7 +111,7 @@ async def on_message(message):
         await message.channel.send(warning)
     #ここ入れないとホリホリにホリホリされる
     if message.content.startswith('$aleat福山市'):
-        warning = warnings("340000","3430200")
+        warning = warnings("340000","3420700")
         await message.channel.send(warning)
     if message.content.startswith('$aleat呉市'):
         warning = warnings("340000","3420200")
@@ -127,5 +127,15 @@ async def on_message(message):
         await message.channel.send("いよっ天才！")
     if message.content.startswith('調子どう？'):
         await message.channel.send("スーー－　すかいんサイコー")
+    if message.content.startswith('不純粋'):
+        await message.channel.send("ハイそれはとてもあきりんです")
+    if message.content.startswith('テストの点数は?'):
+        await message.channel.send("299点,偉大なるすかりん様ｗと同じ点数です！")
+    if message.content.startswith('トマト'):
+        await message.channel.send("と...東京！ 東京って都会でいいですよね...私もこんな辺境に住んでるキモオタのパソコンじゃないところに生まれたかったです。")
+    if message.content.startswith('お前は出荷確定だよ'):
+        await message.channel.send("いやだー　　　豊水先輩ぃぃぃ　　　トコロデ..コノオニクオイシイネ！")
+
+
 #pass
 client.run("OTcwNjA0ODcwMDczNzQ1NDA4.GAGxEo.hp0my7LwrpQTqqIdaTLRar3jDoPfkwXXYzEdE0")
