@@ -25,8 +25,19 @@ def get_quote():
         'データーは気象庁より'
     ]
     return ('\n'.join(jma_return))
+#気象庁からその日の天気をいただくぜ
+def get_quote2():
+    jma_url2 = "https://www.jma.go.jp/bosai/forecast/data/forecast/340000.json"
+    jma_json2 = requests.get(jma_url2).json()
 
-
+    jma_place2=jma_json2[0]["publishingOffice"]
+    jma_timeget2=jma_json2[0]["reportDatetime"]
+    jma_date2 = jma_json2[0]["timeSeries"][0]["timeDefines"][0]
+    jma_temp2=jma_json2[0]["timeSeries"][2]["areas"][0]["temps"][0]
+    jma_weather2 = jma_json2[0]["timeSeries"][0]["areas"][0]["weathers"][0]
+    jma_weather2 = jma_weather2.replace('　', '')
+    jma_return2 = ['今日の天気予報--南部--',jma_place2,"予報取得時刻  "+jma_timeget2,"予報時刻  "+jma_date2,jma_weather2,'最高気温  '+jma_temp2+'℃','データーは気象庁より']
+    return ('\n'.join(jma_return2))
 #警報をいただくぜ
 #!/usr/bin/env python3
 
@@ -75,6 +86,9 @@ async def on_message(message):
     if message.content.startswith('$weather'):
         quote = get_quote()
         await message.channel.send(quote)
+    if message.content.startswith('$weather now'):
+        quote2 = get_quote2()
+        await message.channel.send(quote2)
     if message.content.startswith('$hei'):
         await message.channel.send("やっほ")
     if message.content.startswith('$aleat'):
