@@ -41,19 +41,19 @@ def get_quote2():
 #警報をいただくぜ
 #!/usr/bin/env python3
 
-base = os.path.dirname(os.path.abspath(__file__))
+#関数の引数でセット
+def warnings(a,b):
 
-WEATHER_TRANS = json.load(
-    open(base + "/transweather.json", "r", encoding="utf-8"))
-OFFICES_AREA_CODE = "340000"  #地方エリアのコード
-CLASS_AREA_CODE = "3421200"  #市町村区のコード
-AREA_URL = "https://www.jma.go.jp/bosai/common/const/area.json"
+    base = os.path.dirname(os.path.abspath(__file__))
 
-url = "https://www.jma.go.jp/bosai/warning/data/warning/%s.json" % (
-    OFFICES_AREA_CODE)
+    WEATHER_TRANS = json.load(
+        open(base + "/transweather.json", "r", encoding="utf-8"))
 
+    OFFICES_AREA_CODE = a
+    CLASS_AREA_CODE = b
+    AREA_URL = "https://www.jma.go.jp/bosai/common/const/area.json"
+    url = "https://www.jma.go.jp/bosai/warning/data/warning/%s.json" % (OFFICES_AREA_CODE)
 
-def warnings():
     area_data = requests.get(AREA_URL).json()
     area = area_data["class20s"][CLASS_AREA_CODE]["name"]
     warning_info = requests.get(url).json()
@@ -91,10 +91,41 @@ async def on_message(message):
         await message.channel.send(quote2)
     if message.content.startswith('$hei'):
         await message.channel.send("やっほ")
-    if message.content.startswith('$aleat'):
-        warning = warnings()
+
+#aleat関係
+    #一番大事
+    if message.content.startswith('$aleat大本郷帝國'):
+        warning = warnings("340000","3420400")
         await message.channel.send(warning)
-
-
+    if message.content.startswith('$aleat東広島市'):
+        warning = warnings("340000","3421200")
+        await message.channel.send(warning)
+    if message.content.startswith('$aleat府中町'):
+        warning = warnings("340000","3430200")
+        await message.channel.send(warning)
+    if message.content.startswith('$aleat熊野町'):
+        warning = warnings("340000","3430700")
+        await message.channel.send(warning)
+    if message.content.startswith('$aleat海田町'):
+        warning = warnings("340000","3430400")
+        await message.channel.send(warning)
+    #ここ入れないとホリホリにホリホリされる
+    if message.content.startswith('$aleat福山市'):
+        warning = warnings("340000","3430200")
+        await message.channel.send(warning)
+    if message.content.startswith('$aleat呉市'):
+        warning = warnings("340000","3420200")
+        await message.channel.send(warning)
+    #ぺーすかぺすか
+    if message.content.startswith('$aleat我らがぺスカの居住区'):
+        warning = warnings("340000","3436800")
+        await message.channel.send(warning)
+#aleat関係ではないです
+    if message.content.startswith('どやぁ'):
+            await message.channel.send("さすがっす！")
+    if message.content.startswith('どやあ'):
+        await message.channel.send("いよっ天才！")
+    if message.content.startswith('調子どう？'):
+        await message.channel.send("スーー－　すかいんサイコー")
 #pass
 client.run("OTcwNjA0ODcwMDczNzQ1NDA4.GAGxEo.hp0my7LwrpQTqqIdaTLRar3jDoPfkwXXYzEdE0")
