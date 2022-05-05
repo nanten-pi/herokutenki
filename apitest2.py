@@ -5,8 +5,7 @@ import json
 import os.path
 
 client = discord.Client()
-
-
+#今思ったけどなんで日本語でコメント書いてるんだ？　::coment is japanese (頭悪そう)
 #気象庁から天気予報をいただくぜ
 def get_quote():
     jma_url = "https://www.jma.go.jp/bosai/forecast/data/forecast/340000.json"
@@ -68,7 +67,13 @@ def warnings(a,b):
         WEATHER_TRANS["warninginfo"][code] for code in warning_codes
     ]
 
-    return (area, warning_texts)
+    if warning_texts == []:
+            warning_text = "現在発表されている警報・注意報はありません。"
+    else:
+            warning_texts ="".join(warning_texts)
+            warning_text = warning_texts+"が発表されています"
+    warning_return = [area+"では",warning_text]
+    return ("".join(warning_return))
 
 
 #起動確認だよん
@@ -119,6 +124,10 @@ async def on_message(message):
     #ぺーすかぺすか
     if message.content.startswith('$aleat我らがぺスカの居住区'):
         warning = warnings("340000","3436800")
+        await message.channel.send(warning)
+    #紛れ込んだ岩国ちゃん
+    if message.content.startswith('$aleat岩国'):
+        warning = warnings("340000","3520800")
         await message.channel.send(warning)
 #aleat関係ではないです
     if message.content.startswith('どやぁ'):
