@@ -1,8 +1,10 @@
-import discord
 import os
+from dotenv import load_dotenv
+import discord
 import requests
 import json
 import os.path
+load_dotenv()
 
 client = discord.Client()
 #今思ったけどなんで日本語でコメント書いてるんだ？　::coment is japanese (頭悪そう)
@@ -40,7 +42,6 @@ def get_quote2():
 #警報をいただくぜ
 #!/usr/bin/env python3
 
-#関数の引数でセット
 def warnings(a,b):
 
     base = os.path.dirname(os.path.abspath(__file__))
@@ -75,13 +76,10 @@ def warnings(a,b):
     warning_return = [area+"では",warning_text]
     return ("".join(warning_return))
 
-
 #起動確認だよん
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
-
-
 #コマンド実装
 @client.event
 async def on_message(message):
@@ -102,23 +100,23 @@ async def on_message(message):
     if message.content.startswith('$aleat大本郷帝國'):
         warning = warnings("340000","3420400")
         await message.channel.send(warning)
-    if message.content.startswith('$aleat東広島市'):
+    if message.content.startswith('$aleat東広島'):
         warning = warnings("340000","3421200")
         await message.channel.send(warning)
     if message.content.startswith('$aleat府中町'):
         warning = warnings("340000","3430200")
         await message.channel.send(warning)
-    if message.content.startswith('$aleat熊野町'):
+    if message.content.startswith('$aleat熊野'):
         warning = warnings("340000","3430700")
         await message.channel.send(warning)
-    if message.content.startswith('$aleat海田町'):
+    if message.content.startswith('$aleat海田'):
         warning = warnings("340000","3430400")
         await message.channel.send(warning)
     #ここ入れないとホリホリにホリホリされる
-    if message.content.startswith('$aleat福山市'):
+    if message.content.startswith('$aleat福山'):
         warning = warnings("340000","3420700")
         await message.channel.send(warning)
-    if message.content.startswith('$aleat呉市'):
+    if message.content.startswith('$aleat呉'):
         warning = warnings("340000","3420200")
         await message.channel.send(warning)
     #ぺーすかぺすか
@@ -129,9 +127,11 @@ async def on_message(message):
     if message.content.startswith('$aleat岩国'):
         warning = warnings("340000","3520800")
         await message.channel.send(warning)
+
+
 #aleat関係ではないです
     if message.content.startswith('どやぁ'):
-            await message.channel.send("さすがっす！")
+        await message.channel.send("さすがっす！")
     if message.content.startswith('どやあ'):
         await message.channel.send("いよっ天才！")
     if message.content.startswith('調子どう？'):
@@ -145,6 +145,5 @@ async def on_message(message):
     if message.content.startswith('お前は出荷確定だよ'):
         await message.channel.send("いやだー　　　豊水先輩ぃぃぃ　　　トコロデ..コノオニクオイシイネ！")
 
-
 #pass
-client.run("OTcwNjA0ODcwMDczNzQ1NDA4.GAGxEo.hp0my7LwrpQTqqIdaTLRar3jDoPfkwXXYzEdE0")
+client.run(os.getenv('TOKEN'))
