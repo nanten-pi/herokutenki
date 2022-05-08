@@ -4,6 +4,7 @@ import discord
 import requests
 import json
 import os.path
+
 load_dotenv()
 
 client = discord.Client()
@@ -64,10 +65,11 @@ def warnings(a,b):
         for warning in class_area["warnings"]
         if warning["status"] != "解除" and warning["status"] != "発表警報・注意報はなし"
     ]
+    #print (warning_codes)
     warning_texts = [
         WEATHER_TRANS["warninginfo"][code] for code in warning_codes
     ]
-
+    #print (warning_texts)
     if warning_texts == []:
             warning_text = "現在発表されている警報・注意報はありません。"
     else:
@@ -97,31 +99,24 @@ async def on_message(message):
 
 #aleat関係
     #一番大事
-    if message.content.startswith('$aleat大本郷帝國'):
-        warning = warnings("340000","3420400")
-        await message.channel.send(warning)
-    if message.content.startswith('$aleat東広島'):
-        warning = warnings("340000","3421200")
-        await message.channel.send(warning)
-    if message.content.startswith('$aleat府中町'):
-        warning = warnings("340000","3430200")
-        await message.channel.send(warning)
-    if message.content.startswith('$aleat熊野'):
-        warning = warnings("340000","3430700")
-        await message.channel.send(warning)
-    if message.content.startswith('$aleat海田'):
-        warning = warnings("340000","3430400")
-        await message.channel.send(warning)
-    #ここ入れないとホリホリにホリホリされる
-    if message.content.startswith('$aleat福山'):
-        warning = warnings("340000","3420700")
-        await message.channel.send(warning)
-    if message.content.startswith('$aleat呉'):
-        warning = warnings("340000","3420200")
-        await message.channel.send(warning)
-    #ぺーすかぺすか
-    if message.content.startswith('$aleat我らがぺスカの居住区'):
-        warning = warnings("340000","3436800")
+#イベント内に関数を配置せずに何とかする
+
+    if message.content.startswith('$aleat '):
+        base = os.path.dirname(os.path.abspath(__file__))
+
+        CITYCODE = json.load(
+            open(base + "/aleat.json", "r", encoding="utf-8"))
+        clasareacode = message.content.replace('$aleat ', '')
+        clasareacode = {clasareacode}
+        print(clasareacode)
+        citycode = [
+            CITYCODE["citycodes"][code] for code in clasareacode
+        ]
+
+        print(clasareacode)
+        print(citycode)
+        citycode = "".join(citycode)
+        warning = warnings("340000",citycode)
         await message.channel.send(warning)
     #紛れ込んだ岩国ちゃん
     if message.content.startswith('$aleat岩国'):
@@ -144,6 +139,7 @@ async def on_message(message):
         await message.channel.send("と...東京！ 東京って都会でいいですよね...私もこんな辺境に住んでるキモオタのパソコンじゃないところに生まれたかったです。")
     if message.content.startswith('お前は出荷確定だよ'):
         await message.channel.send("いやだー　　　豊水先輩ぃぃぃ　　　トコロデ..コノオニクオイシイネ！")
+
 
 #pass
 client.run(os.getenv('TOKEN'))
