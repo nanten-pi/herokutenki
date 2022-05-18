@@ -127,6 +127,8 @@ async def on_message(message):
 #aleat関係ではないです
     if message.content.startswith('どやぁ'):
         await message.channel.send("さすがっす！")
+    if message.content.startswith('おばあき~'):
+        await message.channel.send("黒服の出番です不純粋様")
     if message.content.startswith('どやあ'):
         await message.channel.send("いよっ天才！")
     if message.content.startswith('調子どう？'):
@@ -142,4 +144,5 @@ async def on_message(message):
 
 
 #pass
-client.run(os.getenv('TOKEN'))
+client.run('OTcwNjA0ODcwMDczNzQ1NDA4.GAGxEo.hp0my7LwrpQTqqIdaTLRar3jDoPfkwXXYzEdE0')
+#client.run(os.getenv('TOKEN'))
