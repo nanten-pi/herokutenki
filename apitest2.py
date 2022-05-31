@@ -41,7 +41,7 @@ def get_quote2():
     jma_return2 = ['今日の天気予報--南部--',jma_place2,"予報取得時刻  "+jma_timeget2,"予報時刻  "+jma_date2,jma_weather2,'最高気温  '+jma_temp2+'℃','データーは気象庁より']
     return ('\n'.join(jma_return2))
 #警報をいただくぜ
-#!/usr/bin/env python3
+#!/usr/bin/env python3 ?????
 
 def warnings(a,b):
 
@@ -144,5 +144,5 @@ async def on_message(message):
 
 
 #pass
-client.run('OTcwNjA0ODcwMDczNzQ1NDA4.GAGxEo.hp0my7LwrpQTqqIdaTLRar3jDoPfkwXXYzEdE0')
 #client.run(os.getenv('TOKEN'))
+client.run('OTcwNjA0ODcwMDczNzQ1NDA4.Gz0hVD.UV5limJ58biTSUqyBFEJlAdUMAoZPLP7u__TLw')
