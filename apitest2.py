@@ -144,5 +144,5 @@ async def on_message(message):
 
 
 #pass
-#client.run(os.getenv('TOKEN'))
+
 client.run('OTcwNjA0ODcwMDczNzQ1NDA4.Gz0hVD.UV5limJ58biTSUqyBFEJlAdUMAoZPLP7u__TLw')
