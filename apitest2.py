@@ -4,7 +4,7 @@ import discord
 import requests
 import json
 import os.path
-
+import mojimoji
 load_dotenv()
 
 client = discord.Client()
@@ -127,15 +127,15 @@ async def on_message(message):
 #aleat関係ではないです
     if message.content.startswith('どやぁ'):
         await message.channel.send("さすがっす！")
-    if message.content.startswith('おばあき~'):
+    if message.content.startswith('おばあき'):
         await message.channel.send("黒服の出番です不純粋様")
     if message.content.startswith('どやあ'):
         await message.channel.send("いよっ天才！")
-    if message.content.startswith('調子どう？'):
+    if message.content.startswith('調子どう'):
         await message.channel.send("スーー－　すかいんサイコー")
     if message.content.startswith('不純粋'):
         await message.channel.send("ハイそれはとてもあきりんです")
-    if message.content.startswith('テストの点数は?'):
+    if message.content.startswith('テストの点数は'):
         await message.channel.send("299点,偉大なるすかりん様ｗと同じ点数です！")
     if message.content.startswith('トマト'):
         await message.channel.send("と...東京！ 東京って都会でいいですよね...私もこんな辺境に住んでるキモオタのパソコンじゃないところに生まれたかったです。")
@@ -145,4 +145,4 @@ async def on_message(message):
 
 #pass
 
-client.run('OTcwNjA0ODcwMDczNzQ1NDA4.Gz0hVD.UV5limJ58biTSUqyBFEJlAdUMAoZPLP7u__TLw')
+client.run(os.getenv('TOKEN'))
