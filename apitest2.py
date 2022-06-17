@@ -10,8 +10,11 @@ load_dotenv()
 
 hook = hook(url="https://discord.com/api/webhooks/987346842104791070/60wJv65ac2q3u7-6mVej2zTSVquVFG7cnnRJdL0KQ5RtjK2h0bMBH7hPv7mNqFNYPeKM")
 hook.post(
-    embeds=[{"title": "Embed Title", "description": "Embed description"}],
+    content="I login,but you can use me only 本気の一般 eigoatterukawakaran by nanten",
+    username="あきいん",
+    avatar_url="http://www.hcyuko.hiroshima-c.ed.jp/images/top/mainimg01.jpg"
 )
+
 
 client = discord.Client()
 #今思ったけどなんで日本語でコメント書いてるんだ？　::coment is japanese (頭悪そう)
@@ -28,7 +31,7 @@ def get_quote():
     jma_weather = jma_json[0]["timeSeries"][0]["areas"][0]["weathers"][1]
     jma_weather = jma_weather.replace('　', '')
     jma_return = [
-        '明日の天気予報--南部--', jma_place, "予報取得時刻  " + jma_timeget,
+        jma_place, "予報取得時刻  " + jma_timeget,
         "予報時刻  " + jma_date, jma_weather, '最高気温  ' + jma_temp + '℃',
         'データーは気象庁より'
     ]
@@ -44,10 +47,9 @@ def get_quote2():
     jma_temp2=jma_json2[0]["timeSeries"][2]["areas"][0]["temps"][0]
     jma_weather2 = jma_json2[0]["timeSeries"][0]["areas"][0]["weathers"][0]
     jma_weather2 = jma_weather2.replace('　', '')
-    jma_return2 = ['今日の天気予報--南部--',jma_place2,"予報取得時刻  "+jma_timeget2,"予報時刻  "+jma_date2,jma_weather2,'最高気温  '+jma_temp2+'℃','データーは気象庁より']
+    jma_return2 = [jma_place2,"予報取得時刻  "+jma_timeget2,"予報時刻  "+jma_date2,jma_weather2,'最高気温  '+jma_temp2+'℃','データーは気象庁より']
     return ('\n'.join(jma_return2))
 #警報をいただくぜ
-
 
 def warnings(a,b):
 
@@ -96,10 +98,15 @@ async def on_message(message):
 
     if message.content.startswith('$nextweather'):
         quote = get_quote()
-        await message.channel.send(quote)
+        hook.post(
+            embeds=[{"title": "明日の天気予報--南部--", "description": quote}],
+        )
+
     if message.content.startswith('$nowweather'):
         quote2 = get_quote2()
-        await message.channel.send(quote2)
+        hook.post(
+            embeds=[{"title": "今日の天気予報--南部--", "description": quote2}],
+        )
     if message.content.startswith('$hei'):
         await message.channel.send("やっほ")
 
@@ -123,7 +130,9 @@ async def on_message(message):
         print(citycode)
         citycode = "".join(citycode)
         warning = warnings("340000",citycode)
-        await message.channel.send(warning)
+        hook.post(
+            embeds=[{"title": "aleat", "description": warning, "color": 15258703}],
+        )
     #紛れ込んだ岩国ちゃん
     if message.content.startswith('$aleat岩国'):
         warning = warnings("340000","3520800")
