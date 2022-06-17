@@ -5,7 +5,13 @@ import requests
 import json
 import os.path
 import mojimoji
+from discordwebhook import Discord as hook
 load_dotenv()
+
+hook = hook(url="https://discord.com/api/webhooks/987346842104791070/60wJv65ac2q3u7-6mVej2zTSVquVFG7cnnRJdL0KQ5RtjK2h0bMBH7hPv7mNqFNYPeKM")
+hook.post(
+    embeds=[{"title": "Embed Title", "description": "Embed description"}],
+)
 
 client = discord.Client()
 #今思ったけどなんで日本語でコメント書いてるんだ？　::coment is japanese (頭悪そう)
@@ -41,7 +47,7 @@ def get_quote2():
     jma_return2 = ['今日の天気予報--南部--',jma_place2,"予報取得時刻  "+jma_timeget2,"予報時刻  "+jma_date2,jma_weather2,'最高気温  '+jma_temp2+'℃','データーは気象庁より']
     return ('\n'.join(jma_return2))
 #警報をいただくぜ
-#!/usr/bin/env python3 ?????
+
 
 def warnings(a,b):
 
