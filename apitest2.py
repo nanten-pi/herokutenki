@@ -73,18 +73,18 @@ def warnings(a,b):
         for warning in class_area["warnings"]
         if warning["status"] != "解除" and warning["status"] != "発表警報・注意報はなし"
     ]
-    #print (warning_codes)
+
     warning_texts = [
         WEATHER_TRANS["warninginfo"][code] for code in warning_codes
     ]
-    #print (warning_texts)
+
     if warning_texts == []:
             warning_text = "現在発表されている警報・注意報はありません。"
     else:
             warning_texts ="".join(warning_texts)
             warning_text = warning_texts+"が発表されています"
     warning_return = [area+"では",warning_text]
-    return ("".join(warning_return))
+    return ("".join(warning_return) )
 
 #起動確認だよん
 @client.event
@@ -130,9 +130,20 @@ async def on_message(message):
         print(citycode)
         citycode = "".join(citycode)
         warning = warnings("340000",citycode)
-        hook.post(
-            embeds=[{"title": "aleat", "description": warning, "color": 15258703}],
-        )
+        if "注意報" in warning and "警報" in warning :
+            hook.post(
+                embeds=[{"title": "県内に発令されている警報及び注意報", "description": warning, "color": 2530797}],
+            )
+        elif "注意報" in warning :
+            hook.post(
+                embeds=[{"title": "県内に発令されている警報及び注意報", "description": warning, "color": 15258703}],
+            )
+        elif "警報" in warning :
+            hook.post(
+                embeds=[{"title": "県内に発令されている警報及び注意報", "description": warning, "color": 14883097}],
+            )
+        else :
+            await message.channel.send("まずいっす")
     #紛れ込んだ岩国ちゃん
     if message.content.startswith('$aleat岩国'):
         warning = warnings("340000","3520800")
