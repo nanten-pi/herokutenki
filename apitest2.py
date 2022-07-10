@@ -6,6 +6,8 @@ import json
 import os.path
 import mojimoji
 from discordwebhook import Discord as hook
+from discord.ext import tasks
+from datetime import datetime 
 load_dotenv()
 
 hook = hook(url="https://discord.com/api/webhooks/987346842104791070/60wJv65ac2q3u7-6mVej2zTSVquVFG7cnnRJdL0KQ5RtjK2h0bMBH7hPv7mNqFNYPeKM")
@@ -98,15 +100,12 @@ async def on_message(message):
 
     if message.content.startswith('$nextweather'):
         quote = get_quote()
-        hook.post(
-            embeds=[{"title": "明日の天気予報--南部--", "description": quote}],
-        )
-
+        quotex=discord.Embed(title="今日の天気予報--南部--",description=quote)
+        await message.channel.send(embed=quotex)
     if message.content.startswith('$nowweather'):
         quote2 = get_quote2()
-        hook.post(
-            embeds=[{"title": "今日の天気予報--南部--", "description": quote2}],
-        )
+        quotey=discord.Embed(title="今日の天気予報--南部--",description=quote2)
+        await message.channel.send(embed=quotey)
     if message.content.startswith('$hei'):
         await message.channel.send("やっほ")
 
@@ -121,27 +120,22 @@ async def on_message(message):
             open(base + "/aleat.json", "r", encoding="utf-8"))
         clasareacode = message.content.replace('$aleat ', '')
         clasareacode = {clasareacode}
-        print(clasareacode)
         citycode = [
             CITYCODE["citycodes"][code] for code in clasareacode
         ]
-
-        print(clasareacode)
-        print(citycode)
         citycode = "".join(citycode)
         warning = warnings("340000",citycode)
-        if "注意報" in warning and "警報" in warning :
-            hook.post(
-                embeds=[{"title": "県内に発令されている警報及び注意報", "description": warning, "color": 2530797}],
-            )
-        elif "注意報" in warning :
-            hook.post(
-                embeds=[{"title": "県内に発令されている警報及び注意報", "description": warning, "color": 15258703}],
-            )
+
+        if "注意報" in warning and "警報" in warning and "ありません" :
+            embedmes = discord.Embed(title= "県内に発令されている警報及び注意報", description= warning, color= 0x1e90ff)
+            await message.channel.send(embed=embedmes)
         elif "警報" in warning :
-            hook.post(
-                embeds=[{"title": "県内に発令されている警報及び注意報", "description": warning, "color": 14883097}],
-            )
+            embedmes = discord.Embed(title="県内に発令されている警報及び注意報", description= warning, color = 0xff0000)
+            await message.channel.send(embed=embedmes)
+        elif "注意報" in warning :
+            embedmes = discord.Embed(title = "県内に発令されている警報及び注意報", description = warning, color = 0xffff00)
+            await message.channel.send(embed=embedmes)
+        #this is error message
         else :
             await message.channel.send("まずいっす")
     #紛れ込んだ岩国ちゃん
