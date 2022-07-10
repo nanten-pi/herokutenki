@@ -7,17 +7,10 @@ import os.path
 import mojimoji
 from discordwebhook import Discord as hook
 from discord.ext import tasks
-from datetime import datetime 
+from datetime import datetime
 load_dotenv()
 
 hook = hook(url="https://discord.com/api/webhooks/987346842104791070/60wJv65ac2q3u7-6mVej2zTSVquVFG7cnnRJdL0KQ5RtjK2h0bMBH7hPv7mNqFNYPeKM")
-hook.post(
-    content="I login,but you can use me only 本気の一般 eigoatterukawakaran by nanten",
-    username="あきいん",
-    avatar_url="http://www.hcyuko.hiroshima-c.ed.jp/images/top/mainimg01.jpg"
-)
-
-
 client = discord.Client()
 #今思ったけどなんで日本語でコメント書いてるんだ？　::coment is japanese (頭悪そう)
 #気象庁から天気予報をいただくぜ
@@ -92,6 +85,21 @@ def warnings(a,b):
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
+#定刻メッセージ実装
+@tasks.loop(seconds=60)
+async def loop():
+    # 現在の時刻
+    now = datetime.now().strftime('%H:%M')
+    if now == '5:30':
+        channel = client.get_channel(959355861300555796)
+        await channel.send('おはよう')
+        quote2 = get_quote2()
+        quotey=discord.Embed(title="今日の天気予報--南部--",description=quote2)
+        await channel.send(embed=quotey)
+
+        print("success")
+    what=1
+loop.start()
 #コマンド実装
 @client.event
 async def on_message(message):
@@ -100,7 +108,7 @@ async def on_message(message):
 
     if message.content.startswith('$nextweather'):
         quote = get_quote()
-        quotex=discord.Embed(title="今日の天気予報--南部--",description=quote)
+        quotex=discord.Embed(title="明日の天気予報--南部--",description=quote)
         await message.channel.send(embed=quotex)
     if message.content.startswith('$nowweather'):
         quote2 = get_quote2()
