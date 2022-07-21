@@ -9,32 +9,19 @@ from discordwebhook import Discord as hook
 from discord.ext import tasks
 from datetime import datetime
 import tenkifunction
-import hensu
 load_dotenv()
 client = discord.Client()
 #起動確認だよん
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
+
+
 #定刻メッセージ実装
-@tasks.loop(seconds=60)
+
+@tasks.loop(seconds=1)
 async def loop():
-    # 現在の時刻
-    now = datetime.now().strftime('%H:%M')
-    check = hensu.autocheck()
-    print(check)
-    channel=client.get_channel(837625717537112077)
-    aleattest=discord.Embed(title="県内に発令されている警報及び注意報", description=check, color = 0xff0000)
-    await channel.send(embed=aleattest)
-    if now == '6:30':
-        channel2 = client.get_channel(959355861300555796)
-        await channel2.send('おはようございますか')
-        quote2 = get_quote2()
-        quotey=discord.Embed(title="今日の天気予報--南部--",description=quote2)
-        await channel2.send(embed=quotey)
-        print("success")
-
-
+    channel = client.get_channel(837625717537112077)
 loop.start()
 #コマンド実装
 @client.event
@@ -106,7 +93,7 @@ async def on_message(message):
     if message.content.startswith('お前は出荷確定だよ'):
         await message.channel.send("いやだー　　　豊水先輩ぃぃぃ　　　トコロデ..コノオニクオイシイネ！")
     if message.content.startswith("999"):
-        await message.channel.send("裏コード発動しました")
+        await message.channel.send("裏コード発動しましたw")
 
 #pass
 
