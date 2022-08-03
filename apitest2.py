@@ -9,34 +9,33 @@ from discordwebhook import Discord as hook
 from discord.ext import tasks
 from datetime import datetime
 import tenkifunction
-import autocheck
+
 load_dotenv()
 client = discord.Client()
-
+citycode = 3410100
 @tasks.loop(seconds=1)
 async def loop():
-    citycode = 3410100
-    channel = client.get_channel(830780441874923544)
-    while True:
-        try:
-            citycode2 = str(citycode)
-            warning = tenkifunction.warnings("340000",citycode2)
-            print(warning)
-            if citycode >= 3500000:
-                citycode = 3410100
-            elif "警報" in warning and "注意報" in warning and "ありません" in warning :
-                citycode += 100
-            elif "注意報" in warning:
-                await channel.send(warning)
 
-                citycode += 100
 
-            else:
-                citycode += 100
-            citycode += 100
-        except KeyError :
-            citycode += 100
-
+    global citycode
+    citycode2 = str(citycode)
+    warning = tenkifunction.warnings("340000",citycode2)
+    print(warning)
+    if  3410900<=citycode<=3420100:
+        citycode = 3420200
+    elif 3421600<=citycode<=3430800:
+        citycode = 3430700
+    elif citycode >= 3500000:
+        citycode = 3410100
+    elif "警報" in warning and "注意報" in warning and "ありません" in warning :
+        citycode += 100
+    elif "注意報" in warning:
+        channel = client.get_channel(830780441874923544)
+        await channel.send(warning)
+        citycode += 100
+    else:
+        citycode += 100
+loop.start()
 #コマンド実装
 #開始処理
 @client.event
@@ -114,5 +113,5 @@ async def on_message(message):
         await message.channel.send("裏コード発動しましたw")
 
 #pass
-loop.start()
+
 client.run(os.getenv('TOKEN'))
