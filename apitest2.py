@@ -12,30 +12,7 @@ import tenkifunction
 
 load_dotenv()
 client = discord.Client()
-citycode = 3410100
-@tasks.loop(seconds=1)
-async def loop():
 
-
-    global citycode
-    citycode2 = str(citycode)
-    warning = tenkifunction.warnings("340000",citycode2)
-    print(warning)
-    if  3410900<=citycode<=3420100:
-        citycode = 3420200
-    elif 3421600<=citycode<=3430800:
-        citycode = 3430700
-    elif citycode >= 3500000:
-        citycode = 3410100
-    elif "警報" in warning and "注意報" in warning and "ありません" in warning :
-        citycode += 100
-    elif "注意報" in warning:
-        channel = client.get_channel(830780441874923544)
-        await channel.send(warning)
-        citycode += 100
-    else:
-        citycode += 100
-loop.start()
 #コマンド実装
 #開始処理
 @client.event
@@ -47,6 +24,7 @@ async def on_message(message):
         return
 
     if message.content.startswith('$nextweather'):
+        print(quotex)
         quote = tenkifunction.get_quote()
         quotex=discord.Embed(title="明日の天気予報--南部--",description=quote)
         await message.channel.send(embed=quotex)
