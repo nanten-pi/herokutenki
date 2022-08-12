@@ -21,13 +21,18 @@ async def on_ready():
 
 async def on_message(message):
     if message.author == client.user:
+        print("get")
         return
-
+# next weather
     if message.content.startswith('$nextweather'):
         print(quotex)
+        #get
         quote = tenkifunction.get_quote()
+        #set enbed
         quotex=discord.Embed(title="明日の天気予報--南部--",description=quote)
+        #send
         await message.channel.send(embed=quotex)
+#now weather
     if message.content.startswith('$nowweather'):
         quote2 = tenkifunction.get_quote2()
         quotey=discord.Embed(title="今日の天気予報--南部--",description=quote2)
@@ -40,18 +45,23 @@ async def on_message(message):
 #イベント内に関数を配置せずに何とかする
 
     if message.content.startswith('$aleat '):
+        #file path
         base = os.path.dirname(os.path.abspath(__file__))
-
+        #json load
         CITYCODE = json.load(
             open(base + "/aleat.json", "r", encoding="utf-8"))
+        #message do
         clasareacode = message.content.replace('$aleat ', '')
         clasareacode = {clasareacode}
+        #get data from json
         citycode = [
             CITYCODE["citycodes"][code] for code in clasareacode
         ]
+        #data
         citycode = "".join(citycode)
+        #get
         warning = tenkifunction.warnings("340000",citycode)
-
+        #send
         if "注意報" in warning and "警報" in warning and "ありません" :
             embedmes = discord.Embed(title= "県内に発令されている警報及び注意報", description= warning, color= 0x1e90ff)
             await message.channel.send(embed=embedmes)
