@@ -73,32 +73,12 @@ async def on_message(message):
             await message.channel.send(embed=embedmes)
         #this is error message
         else :
-            await message.channel.send("まずいっす")
+            await message.channel.send("Error")
     #紛れ込んだ岩国ちゃん
     if message.content.startswith('$aleat岩国'):
         warning = warnings("340000","3520800")
         await message.channel.send(warning)
 
-
-#aleat関係ではないです
-    if message.content.startswith('どやぁ'):
-        await message.channel.send("さすがっす！")
-    if message.content.startswith('おばあき'):
-        await message.channel.send("黒服の出番です不純粋様")
-    if message.content.startswith('どやあ'):
-        await message.channel.send("いよっ天才！")
-    if message.content.startswith('調子どう'):
-        await message.channel.send("スーー－　すかいんサイコー")
-    if message.content.startswith('不純粋'):
-        await message.channel.send("ハイそれはとてもあきりんです")
-    if message.content.startswith('テストの点数は'):
-        await message.channel.send("299点,偉大なるすかりん様ｗと同じ点数です！")
-    if message.content.startswith('トマト'):
-        await message.channel.send("と...東京！ 東京って都会でいいですよね...私もこんな辺境に住んでるキモオタのパソコンじゃないところに生まれたかったです。")
-    if message.content.startswith('お前は出荷確定だよ'):
-        await message.channel.send("いやだー　　　豊水先輩ぃぃぃ　　　トコロデ..コノオニクオイシイネ！")
-    if message.content.startswith("999"):
-        await message.channel.send("裏コード発動しましたw")
 
 #pass
 
